@@ -9,6 +9,7 @@ int ScreenRecorder::captureScreen()
 		return -1;
 
 	captureStopMutex.lock();
+	isCaptureStopped = false;
 	int frameFinished = true;
 	int frameCount = 0;
 	//std::chrono::steady_clock::time_point t0 = std::chrono::high_resolution_clock::now();
@@ -72,6 +73,7 @@ int ScreenRecorder::captureScreen()
 		}
 	}
 
+	isCaptureStopped = true;
 	captureStopMutex.unlock();
 	return 0;
 }
@@ -81,7 +83,7 @@ int ScreenRecorder::initCapture(int windowWidth, int windowHeight, int offsetX, 
 	if (isInitialized)
 		return -1;
 
-	isCaptureStopped = false;
+	isCaptureStopped = true;
 
 	avdevice_register_all();
 	formatCtx = avformat_alloc_context();
@@ -264,6 +266,16 @@ const AVFrame* const ScreenRecorder::getFrameRGB()
 const AVFrame* const ScreenRecorder::getFrameBGRA()
 {
 	return frameBGRA;
+}
+
+bool ScreenRecorder::isInit()
+{
+    return isInitialized;
+}
+
+bool ScreenRecorder::isCapturing()
+{
+	return !isCaptureStopped;
 }
 
 void ScreenRecorder::onFrameUpdate()

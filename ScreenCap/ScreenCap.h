@@ -31,7 +31,7 @@ protected:
 	SwsContext* swsCtx = nullptr;
 	AVPacket* packet = nullptr;
 	std::mutex captureStopMutex;
-	bool isCaptureStopped = false;
+	bool isCaptureStopped = true;
 	bool isInitialized = false;
 	std::thread* screenCapThread = nullptr;
 
@@ -45,6 +45,8 @@ public:
 	int stopCapture();
 	const AVFrame* const getFrameRGB();
 	const AVFrame* const getFrameBGRA();
+	bool isInit();
+	bool isCapturing();
 	~ScreenRecorder();
 };
 
