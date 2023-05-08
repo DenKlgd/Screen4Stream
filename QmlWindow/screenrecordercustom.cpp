@@ -11,6 +11,31 @@ const AVFrame* ScreenRecorderCustom::frameRGB()
     return m_frameRGB;
 }
 
+QList<QString> ScreenRecorderCustom::displayList()
+{
+    m_displayList = QGuiApplication::screens();
+    QList<QString> jsonDisplayList;
+
+    for (auto& i : m_displayList)
+    {
+        jsonDisplayList.append(i->name());
+    }
+
+    return jsonDisplayList;
+}
+
+Q_INVOKABLE QRect ScreenRecorderCustom::getDisplayParams(int displayID)
+{
+    if (displayID < m_displayList.size())
+        return m_displayList.at(displayID)->geometry();
+    return QRect(0, 0, 0, 0);
+}
+
+Q_INVOKABLE bool ScreenRecorderCustom::isInitialized()
+{
+    return ScreenRecorder::isInit();
+}
+
 void ScreenRecorderCustom::onFrameUpdate()
 {
     qDebug() << "Frame update signal emitted!";

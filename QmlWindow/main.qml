@@ -22,27 +22,100 @@ Window {
     }
 
     Button {
-        id: beginCap
+        id: captureSwitch
         x: 14
         y: 18
         width: 137
         height: 42
         text: qsTr("Начать запись")
         onClicked: {
-            //screenRecorder.initCapture(1920, 1080, 0, 0, frameRenderer.width, frameRenderer.height);
-            screenRecorder.initCapture(1920, 1080, 0, 0, 1920, 1080);
-            screenRecorder.startCapture()
+            if (!screenRecorder.isInitialized())
+            {
+                var screenRect = screenRecorder.getDisplayParams(displaySelector.currentIndex);
+                var offsetX = screenRect.left + leftCaptureRectCoord.value;
+                var offsetY = screenRect.top + topCaptureRectCoord.value;
+                var width = rightCaptureRectCoord.value - leftCaptureRectCoord.value
+                var height = bottomCaptureRectCoord.value - topCaptureRectCoord.value
+
+                if (width <= offsetX || height <= offsetY)
+                    return;
+
+                screenRecorder.initCapture(width, height, offsetX, offsetY, 1920, 1080);
+                screenRecorder.startCapture();
+
+                captureSwitch.text = qsTr("Остановить запись");
+            }
+            else
+            {
+                screenRecorder.stopCapture();
+                captureSwitch.text = qsTr("Начать запись");
+            }
         }
     }
 
-    Button {
-        id: stopCap
-        x: 14
-        y: 79
-        width: 137
-        height: 42
-        text: qsTr("Остановить запись")
-        onClicked: screenRecorder.stopCapture()
+    ComboBox {
+        id: displaySelector
+        textRole: "displayName"
+        displayText: "Choose display"
+        x: 100
+        y: 300
+        model: ListModel {
+            id: model
+
+            Component.onCompleted: {
+                for (var i = 0; i < screenRecorder.displayList.length; i++) {
+                    model.append( {displayName: '#' + i + " " + screenRecorder.displayList[i]} );
+                }
+            }
+        }
+        onCurrentIndexChanged: {
+            var index = displaySelector.currentIndex;
+            displayText = model[index];
+            leftCaptureRectCoord.value = 0;
+            topCaptureRectCoord.value = 0;
+            rightCaptureRectCoord.value = screenRecorder.getDisplayParams(index).width;
+            bottomCaptureRectCoord.value = screenRecorder.getDisplayParams(index).height;
+        }
+    }
+
+    SpinBox {
+        id: leftCaptureRectCoord
+        x: 40
+        y: 400
+        width: 60
+        height: 40
+        to: 65535
+        editable: true
+    }
+
+    SpinBox {
+        id: topCaptureRectCoord
+        x: 100
+        y: 400
+        width: 60
+        height: 40
+        to: 65535
+        editable: true
+    }
+
+    SpinBox {
+        id: rightCaptureRectCoord
+        x: 40
+        y: 450
+        width: 60
+        height: 40
+        to: 65535
+        editable: true
+    }
+
+    SpinBox {
+        id: bottomCaptureRectCoord
+        x: 100
+        y: 450
+        width: 60
+        height: 40
+        to: 65535
+        editable: true
     }
 
     Rectangle {
