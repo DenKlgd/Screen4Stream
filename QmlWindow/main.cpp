@@ -10,14 +10,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-
-    QList<QScreen*> screenList = app.screens();
-    for (auto iter : screenList)
-    {
-        qDebug() << "Screen: " << iter->name() << " | Geometry: " << iter->geometry().x() << iter->geometry().y() << iter->geometry().width() << iter->geometry().height();
-    }
-
-
     ScreenRecorderCustom screenRecorder;
 
     QQmlContext* rootContext = engine.rootContext();
