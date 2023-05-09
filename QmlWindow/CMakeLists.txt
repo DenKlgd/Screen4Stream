@@ -13,7 +13,8 @@ set(SOURCES main.cpp
     screenrecordercustom.cpp
 )
 
-add_executable (${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
+#add_executable (${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
+add_executable (${CMAKE_PROJECT_NAME} ${SOURCES})
 
 qt_add_qml_module(${CMAKE_PROJECT_NAME}
     URI QmlWindow
