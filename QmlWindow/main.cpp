@@ -1,9 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QDebug>
 #include <QQmlContext>
+#include <QUdpSocket>
+#include <QDebug>
 #include "screenrecordercustom.h"
 #include "framerenderer.h"
+#include "UdpSocketCustom.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,9 +13,11 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     ScreenRecorderCustom screenRecorder;
+    UdpSocketCustom udpSocket;
 
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("screenRecorder", &screenRecorder);
+    rootContext->setContextProperty("videoStreamer", &udpSocket);
 
     qmlRegisterType<FrameRenderer>("FFmpegScreenCap.FrameRenderer", 1, 0, "FrameRenderer");
 

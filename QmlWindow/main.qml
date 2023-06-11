@@ -19,6 +19,16 @@ Window {
         function onFrameUpdated()
         {
             frameRenderer.frameUpdated(screenRecorder.frameRGB);
+            videoStreamer.sendVideoFrame(screenRecorder.frameRGB);
+        }
+    }
+
+    Connections
+    {
+        target: videoStreamer
+        function onFrameReceived()
+        {
+            frameRenderer.frameUpdated(videoStreamer.frameRGB);
         }
     }
 
@@ -236,6 +246,21 @@ Window {
                     text: qsTr("Подключиться")
                     font.pixelSize: toolbarRect.width / 14
                     Material.background: Material.Orange
+
+                    onClicked: {
+                        if (!videoStreamer.getSocketState())
+                        {
+                            if (!videoStreamer.openSocket())
+                                return;
+                            
+                            connectSwitch.text = qsTr("Отключиться");
+                        }
+                        else 
+                        {
+                            videoStreamer.closeSocket();
+                            connectSwitch.text = qsTr("Подключиться");
+                        }
+                    }
                 }
             }
         }

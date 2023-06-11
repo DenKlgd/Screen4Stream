@@ -2,16 +2,19 @@
 #define FRAMERENDERER_H
 
 #include <QImage>
+#include <QBitmap>
 #include <QQuickPaintedItem>
 #include <QPainter>
 
 #include <QOpenGLContext>
 #include <QOpenGLFunctions>
+#include "Frame.h"
 
 extern "C"
 {
     #include <libavutil/frame.h>
 }
+
 
 class FrameRenderer : public QQuickPaintedItem
 {

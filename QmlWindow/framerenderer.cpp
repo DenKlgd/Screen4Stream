@@ -13,8 +13,17 @@ FrameRenderer::FrameRenderer(QQuickItem *parent) :
  {
     if (m_frame != nullptr)
     {
-        QImage frameTexture(m_frame->data[0], m_frame->width, m_frame->height, QImage::Format::Format_RGB888);
-        painter->drawImage(QRectF(0, 0, width(), height()), frameTexture);
+        try
+        {
+            QImage frameTexture(m_frame->data[0], m_frame->width, m_frame->height, QImage::Format::Format_RGB888);
+            qDebug() << frameTexture.sizeInBytes();
+            painter->drawImage(QRectF(0, 0, width(), height()), frameTexture);
+        }
+        catch(...)
+        {
+            qDebug() << "EXCEPTION!" << '\n';
+        }
+        
     }
     else
     {
@@ -25,8 +34,8 @@ FrameRenderer::FrameRenderer(QQuickItem *parent) :
 
  void FrameRenderer::frameUpdated(const AVFrame* const frame)
  {
-     qDebug() << "void FrameRenderer::frameUpdated()\n";
+    qDebug() << "void FrameRenderer::frameUpdated()\n";
 
-     m_frame = frame;
-     update();
+    m_frame = frame;
+    update();
  }
