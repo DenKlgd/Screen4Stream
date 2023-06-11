@@ -14,7 +14,7 @@ SET (FFMPEG_LIBS
   "${FFMPEG_DIR}/lib/swscale.lib"
   )
 
-add_library(ScreenCap STATIC "ScreenCap.cpp" "ScreenCap.h")
+add_library(ScreenCap STATIC "ScreenCap.cpp" "ScreenCap.h" "ErrorException.h" "ErrorException.cpp")
 
 target_include_directories(ScreenCap PUBLIC "${FFMPEG_DIR}/include")
 
