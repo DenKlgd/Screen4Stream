@@ -1,0 +1,16 @@
+{
+  "name": "screen4stream",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config web/vite.config.js",
+    "build": "vite build --config web/vite.config.js",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tauri-apps/cli": "^2.12.4",
+    "svelte": "^5.57.2",
+    "vite": "^8.3.5"
+  }
+}

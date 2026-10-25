@@ -1,0 +1,15 @@
+[package]
+name = "screen4stream"
+description = "Screen4Stream — демонстрация экрана по WebRTC"
+version.workspace = true
+edition.workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+s4s-core.workspace = true
+s4s-server.workspace = true
+tracing.workspace = true
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-single-instance = "2"

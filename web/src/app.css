@@ -1,0 +1,116 @@
+/* Общие цвета и базовые стили. Компоненты берут цвета только отсюда. */
+:root {
+  --bg-darkest: #1e1f22;
+  --bg-sidebar: #2b2d31;
+  --bg-main: #313338;
+  --bg-card: #2b2d31;
+  --bg-hover: #35373c;
+  --bg-selected: #383a40;
+  --bg-active: #404249;
+  --bg-footer: #232428;
+  --border: #3f4147;
+  --border-dark: #1f2023;
+
+  --text: #f2f3f5;
+  --text-secondary: #b5bac1;
+  --text-muted: #949ba4;
+
+  --accent: #3d6fd9;
+  --accent-text: #8fb0ff;
+  --live: #c9363c;
+  --online: #3fb950;
+  --success: #2f7d52;
+  --warning-bg: #3b2f1a;
+  --warning-text: #f0c674;
+  --error-bg: #3d1f22;
+  --error-text: #ffb3b5;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+
+  color-scheme: dark;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--bg-main);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Кнопки — общие для всех страниц. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: #4e5058; color: #fff; }
+.btn-danger { background: var(--live); color: #fff; }
+.btn-ghost { background: transparent; }
+.btn-large { min-height: 44px; padding: 0 22px; font-size: 15px; }
+
+.btn:not(:disabled):hover { filter: brightness(1.12); }
+.btn-ghost:not(:disabled):hover { background: var(--bg-hover); filter: none; }
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.icon-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.banner {
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+}
+
+.banner-warning { background: var(--warning-bg); color: var(--warning-text); }
+.banner-error { background: var(--error-bg); color: var(--error-text); }
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
